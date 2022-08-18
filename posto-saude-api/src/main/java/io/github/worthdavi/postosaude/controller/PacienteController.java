@@ -1,8 +1,10 @@
 package io.github.worthdavi.postosaude.controller;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.worthdavi.postosaude.model.Paciente;
 import io.github.worthdavi.postosaude.repository.PacienteRepository;
+import io.github.worthdavi.postosaude.service.PacienteAS;
+import io.github.worthdavi.postosaude.to.AgendaTO;
 import io.github.worthdavi.postosaude.to.PacienteTO;
 
 @RestController
@@ -26,11 +30,18 @@ public class PacienteController {
 	@Autowired
 	private PacienteRepository repository;
 	
+	private PacienteAS pacienteAS;
+	
 	@PostMapping
 	public ResponseEntity<PacienteTO> salvar(@RequestBody PacienteTO request) {
 		Paciente paciente = request.tranformIntoEntity();
 		repository.save(paciente);
 		return ResponseEntity.ok(PacienteTO.transformIntoTO(paciente));
+	}
+	
+	@PostMapping("/marcarConsulta")
+	public void marcarConsulta(@RequestBody AgendaTO agenda, PacienteTO paciente, Date data) {
+		pacienteAS.marcarConsulta(agenda, paciente, data);
 	}
 	
 	@PutMapping("{id}")
