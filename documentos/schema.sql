@@ -24,12 +24,8 @@ CREATE TABLE IF NOT EXISTS "usuario" (
   "nascimento" DATE NOT NULL,
   "login" VARCHAR(45) NOT NULL,
   "password" VARCHAR(45) NOT NULL,
-  PRIMARY KEY ("id"),
-  CONSTRAINT "fk_usuario_endereco"
-    FOREIGN KEY ("endereco_id")
-    REFERENCES "endereco" ("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+  "tipo" INT DEFAULT 1
+  );
 
 
 -- -----------------------------------------------------
