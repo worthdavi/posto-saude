@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import io.github.worthdavi.postosaude.model.Medico;
 
 
-public interface MedicoRepository extends JpaRepository<Medico, Long> {
+public interface MedicoRepository extends JpaRepository<Medico, Integer> {
 	
 }

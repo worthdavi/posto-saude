@@ -25,7 +25,6 @@ public class Paciente {
 	private String cpf;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;
 		
 	public Integer getId() {
