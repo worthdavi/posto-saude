@@ -1,107 +1,140 @@
 package io.github.worthdavi.postosaude.to;
 
-import java.util.Date;
-
-import io.github.worthdavi.postosaude.enums.TipoUsuarioEnum;
-import io.github.worthdavi.postosaude.model.Endereco;
 import io.github.worthdavi.postosaude.model.Usuario;
 
 public class UsuarioTO {
 
-	private Integer id;
-	private Endereco endereco;
-	private String nome;
-	private Date nascimento;
+	private Integer idUsuario;
 	private String login;
-	private String password;
-	private TipoUsuarioEnum tipoUsuario;
-
+	private String senha;
+	private String nome;
+	private String telefone;
+	private EnderecoTO endereco;
+	private UnidadeDeSaudeTO unidade;
+		
+	/**
+	 * 
+	 */
 	public UsuarioTO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	
-	public UsuarioTO(Integer id, Endereco endereco, String nome, Date nascimento, String login, String password, TipoUsuarioEnum tipoUsuario) {
+	/**
+	 * @param idUsuario
+	 * @param login
+	 * @param senha
+	 * @param nome
+	 * @param telefone
+	 * @param nascimento
+	 * @param endereco
+	 */
+	public UsuarioTO(Integer idUsuario, String login, String senha, String nome, String telefone, EnderecoTO endereco, UnidadeDeSaudeTO unidade) {
 		super();
-		this.id = id;
-		this.endereco = endereco;
-		this.nome = nome;
-		this.nascimento = nascimento;
+		this.idUsuario = idUsuario;
 		this.login = login;
-		this.password = password;
-		this.tipoUsuario = tipoUsuario;
-	}
-	
-	public Usuario tranformIntoEntity() {
-		Usuario usuario = new Usuario();
-		usuario.setId(id);
-		usuario.setEndereco(endereco);
-		usuario.setNome(nome);
-		usuario.setNascimento(nascimento);
-		usuario.setLogin(login);
-		usuario.setPassword(password);
-		usuario.setTipoUsuario(tipoUsuario);
-		return usuario;
-	}
-	
-	public static UsuarioTO transformIntoTO(Usuario usuario) {
-		return new UsuarioTO(usuario.getId(), usuario.getEndereco(), usuario.getNome(), usuario.getNascimento(), usuario.getLogin(), usuario.getPassword(), usuario.getTipoUsuario());
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
+		this.senha = senha;
+		this.nome = nome;
+		this.telefone = telefone;
 		this.endereco = endereco;
 	}
-
-	public String getNome() {
-		return nome;
+	
+	/**
+	 * @return the idUsuario
+	 */
+	public Integer getIdUsuario() {
+		return idUsuario;
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
+	/**
+	 * @param idUsuario the idUsuario to set
+	 */
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
 	}
-
-	public Date getNascimento() {
-		return nascimento;
-	}
-
-	public void setNascimento(Date nascimento) {
-		this.nascimento = nascimento;
-	}
-
+	/**
+	 * @return the login
+	 */
 	public String getLogin() {
 		return login;
 	}
-
+	/**
+	 * @param login the login to set
+	 */
 	public void setLogin(String login) {
 		this.login = login;
 	}
-
-	public String getPassword() {
-		return password;
+	/**
+	 * @return the senha
+	 */
+	public String getSenha() {
+		return senha;
+	}
+	/**
+	 * @param senha the senha to set
+	 */
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	/**
+	 * @return the nome
+	 */
+	public String getNome() {
+		return nome;
+	}
+	/**
+	 * @param nome the nome to set
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	/**
+	 * @return the telefone
+	 */
+	public String getTelefone() {
+		return telefone;
+	}
+	/**
+	 * @param telefone the telefone to set
+	 */
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	/**
+	 * @return the endereco
+	 */
+	public EnderecoTO getEndereco() {
+		return endereco;
 	}
-
-	public TipoUsuarioEnum getTipoUsuario() {
-		return tipoUsuario;
-	}
-
-	public void setTipoUsuario(TipoUsuarioEnum tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
+	/**
+	 * @param endereco the endereco to set
+	 */
+	public void setEndereco(EnderecoTO endereco) {
+		this.endereco = endereco;
 	}
 	
+	/**
+	 * @return the unidade
+	 */
+	public UnidadeDeSaudeTO getUnidadeDeSaude() {
+		return unidade;
+	}
+	/**
+	 * @param unidade the unidade to set
+	 */
+	public void setUnidadeDeSaude(UnidadeDeSaudeTO unidade) {
+		this.unidade = unidade;
+	}
+	public Usuario toModel() {
+		Usuario usuario = new Usuario();
+		usuario.setLogin(this.login);
+		usuario.setSenha(this.senha);
+		usuario.setNome(this.nome);
+		usuario.setTelefone(this.telefone);
+		usuario.setEndereco(null);
+		return usuario;
+	}
+	
+	
+
 	
 }

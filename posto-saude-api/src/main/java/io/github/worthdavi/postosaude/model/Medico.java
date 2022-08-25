@@ -8,60 +8,58 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@PrimaryKeyJoinColumn(name="usuario_id")
 @Table(name = "medico")
 public class Medico {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-	private Integer id;
+	@Column(name="idmedico")
+	private Integer idMedico;
 	
-	@Column(name = "crm")
-	private String crm;
+	@Column(name="crm")
+	private String CRM;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
 	private Usuario usuario;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "agenda_id", referencedColumnName = "id")
-	private Agenda agenda;
-		
-	public Integer getId() {
-		return id;
+
+	/**
+	 * @return the cRM
+	 */
+	public String getCRM() {
+		return CRM;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	/**
+	 * @param cRM the cRM to set
+	 */
+	public void setCRM(String CRM) {
+		this.CRM = CRM;
 	}
-	
-	public String getCrm() {
-		return crm;
-	}
-	
-	public void setCrm(String crm) {
-		this.crm = crm;
-	}
-	
+
+	/**
+	 * @return the usuario
+	 */
 	public Usuario getUsuario() {
 		return usuario;
 	}
-	
+
+	/**
+	 * @param usuario the usuario to set
+	 */
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	public Agenda getAgenda() {
-		return agenda;
-	}
 
-	public void setAgenda(Agenda agenda) {
-		this.agenda = agenda;
-	}
+	/**
+	 * @return the idMedico
+	 */
+	public Integer getIdMedico() {
+		return idMedico;
+	}	
+	
 	
 }

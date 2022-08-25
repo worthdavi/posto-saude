@@ -1,5 +1,6 @@
 package io.github.worthdavi.postosaude.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,35 +16,50 @@ public class Consulta {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	private String descricao;
+	@Column(name="idaconsulta")
+	private Integer idConsulta;
 	
 	@OneToOne
-	@JoinColumn(name = "paciente_id")
+	@JoinColumn(name = "idagenda")
+	private Agenda agenda;
+	
+	@OneToOne
+	@JoinColumn(name = "idpaciente")
 	private Paciente paciente;
-	
-	public Integer getId() {
-		return id;
+
+	/**
+	 * @return the agenda
+	 */
+	public Agenda getAgenda() {
+		return agenda;
 	}
-	
-	public void setId(Integer id) {
-		this.id = id;
+
+	/**
+	 * @param agenda the agenda to set
+	 */
+	public void setAgenda(Agenda agenda) {
+		this.agenda = agenda;
 	}
-	
-	public String getDescricao() {
-		return descricao;
-	}
-	
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	
+
+	/**
+	 * @return the paciente
+	 */
 	public Paciente getPaciente() {
 		return paciente;
 	}
-	
+
+	/**
+	 * @param paciente the paciente to set
+	 */
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
+
+	/**
+	 * @return the idConsulta
+	 */
+	public Integer getIdConsulta() {
+		return idConsulta;
+	}	
 
 }

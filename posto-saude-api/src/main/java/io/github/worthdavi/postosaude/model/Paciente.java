@@ -8,33 +8,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@PrimaryKeyJoinColumn(name="usuario_id")
 @Table(name = "paciente")
 public class Paciente {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-	private Integer id;
-	
-	@Column(name = "cpf")
+	@Column(name="idpaciente")
+	private Integer idPaciente;
+
 	private String cpf;
 	
 	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
 	private Usuario usuario;
-		
-	public Integer getId() {
-		return id;
+			
+	/**
+	 * @return the idPaciente
+	 */
+	public Integer getIdPaciente() {
+		return idPaciente;
 	}
-	
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
+
 	public String getCpf() {
 		return cpf;
 	}

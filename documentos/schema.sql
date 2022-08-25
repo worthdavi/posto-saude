@@ -1,46 +1,45 @@
-
 -- -----------------------------------------------------
 -- Table "endereco"
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS "endereco" ;
+CREATE TABLE IF NOT EXISTS endereco (
+  "idendereco" SERIAL,
+  "rua" VARCHAR(45) NULL,
+  "numero" INT NULL,
+  "bairro" VARCHAR(45) NULL,
+  "estado" VARCHAR(45) NULL,
+  "pais" VARCHAR(45) NULL,
+  PRIMARY KEY ("idendereco"));
 
-CREATE TABLE IF NOT EXISTS "endereco" (
-  "id" SERIAL,
-  "bairro" VARCHAR(45) NOT NULL,
-  "rua" VARCHAR(255) NOT NULL,
-  "numero" VARCHAR(10) NULL,
-  PRIMARY KEY ("id"));
+
+-- -----------------------------------------------------
+-- Table "unidadedesaude"
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS unidadedesaude (
+  "idunidadedesaude" SERIAL,
+  "nome" VARCHAR(45) NULL,
+  PRIMARY KEY ("idunidadedesaude"));
 
 
 -- -----------------------------------------------------
 -- Table "usuario"
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS "usuario" ;
-
-CREATE TABLE IF NOT EXISTS "usuario" (
-  "id" SERIAL,
-  "endereco_id" INT NOT NULL,
-  "nome" VARCHAR(255) NOT NULL,
-  "nascimento" DATE NOT NULL,
-  "login" VARCHAR(45) NOT NULL,
-  "password" VARCHAR(45) NOT NULL,
-  "tipo" INT DEFAULT 1
-  );
-
-
--- -----------------------------------------------------
--- Table "posto_saude"
--- -----------------------------------------------------
-DROP TABLE IF EXISTS "posto_saude" ;
-
-CREATE TABLE IF NOT EXISTS "posto_saude" (
-  "id" SERIAL,
-  "nome" VARCHAR(255) NULL,
-  "endereco_id" INT NOT NULL,
-  PRIMARY KEY ("id"),
-  CONSTRAINT "fk_posto_saude_endereco1"
-    FOREIGN KEY ("endereco_id")
-    REFERENCES "endereco" ("id")
+CREATE TABLE IF NOT EXISTS usuario (
+  "idusuario" SERIAL,
+  "login" VARCHAR(45) NULL,
+  "senha" VARCHAR(45) NULL,
+  "nome" VARCHAR(45) NULL,
+  "telefone" VARCHAR(45) NULL,
+  "idendereco" INT NOT NULL,
+  "idunidadedesaude" INT NOT NULL,
+  PRIMARY KEY ("idusuario"),
+  CONSTRAINT "fk_usuario_endereco1"
+    FOREIGN KEY ("idendereco")
+    REFERENCES endereco ("idendereco")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT "fk_usuario_unidadedesaude1"
+    FOREIGN KEY ("idunidadedesaude")
+    REFERENCES unidadedesaude ("idunidadedesaude")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -48,51 +47,14 @@ CREATE TABLE IF NOT EXISTS "posto_saude" (
 -- -----------------------------------------------------
 -- Table "paciente"
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS "paciente" ;
-
-CREATE TABLE IF NOT EXISTS "paciente" (
-  "id" SERIAL,
-  "cpf" VARCHAR(11) NULL,
-  "usuario_id" INT NOT NULL,
-  PRIMARY KEY ("id"),
-  CONSTRAINT "fk_paciente_usuario1"
-    FOREIGN KEY ("usuario_id")
-    REFERENCES "usuario" ("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
--- -----------------------------------------------------
--- Table "consulta"
--- -----------------------------------------------------
-DROP TABLE IF EXISTS "consulta" ;
-
-CREATE TABLE IF NOT EXISTS "consulta" (
-  "id" SERIAL,
-  "descricao" VARCHAR(45) NULL,
-  "paciente_id" INT NOT NULL,
-  PRIMARY KEY ("id"),
-  CONSTRAINT "fk_consulta_paciente1"
-    FOREIGN KEY ("paciente_id")
-    REFERENCES "paciente" ("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
--- -----------------------------------------------------
--- Table "agenda"
--- -----------------------------------------------------
-DROP TABLE IF EXISTS "agenda" ;
-
-CREATE TABLE IF NOT EXISTS "agenda" (
-  "id" SERIAL,
-  "data" DATE NULL,
-  "status" VARCHAR(45) NULL,
-  "consulta_id" INT NOT NULL,
-  PRIMARY KEY ("id"),
-  CONSTRAINT "fk_agenda_consulta1"
-    FOREIGN KEY ("consulta_id")
-    REFERENCES "consulta" ("id")
+CREATE TABLE IF NOT EXISTS paciente (
+  "cpf" VARCHAR(45) NOT NULL,
+  "idpaciente" SERIAL,
+  "idusuario" INT NOT NULL,
+  PRIMARY KEY ("idpaciente"),
+  CONSTRAINT "fk_paciente_usuario"
+    FOREIGN KEY ("idusuario")
+    REFERENCES usuario ("idusuario")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -100,63 +62,95 @@ CREATE TABLE IF NOT EXISTS "agenda" (
 -- -----------------------------------------------------
 -- Table "medico"
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS "medico" ;
-
-CREATE TABLE IF NOT EXISTS "medico" (
-  "id" SERIAL,
+CREATE TABLE IF NOT EXISTS medico (
+  "idmedico" SERIAL,
   "crm" VARCHAR(45) NULL,
-  "usuario_id" INT NOT NULL,
-  "agenda_id" INT NOT NULL,
-  PRIMARY KEY ("id"),
+  "idusuario" INT NOT NULL,
+  PRIMARY KEY ("idmedico"),
   CONSTRAINT "fk_medico_usuario1"
-    FOREIGN KEY ("usuario_id")
-    REFERENCES "usuario" ("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT "fk_medico_agenda1"
-    FOREIGN KEY ("agenda_id")
-    REFERENCES "agenda" ("id")
+    FOREIGN KEY ("idusuario")
+    REFERENCES usuario ("idusuario")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table "medico_has_consulta"
+-- Table "funcionario"
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS "medico_has_consulta" ;
-
-CREATE TABLE IF NOT EXISTS "medico_has_consulta" (
-  "medico_id" INT NOT NULL,
-  "consulta_id" INT NOT NULL,
-  PRIMARY KEY ("medico_id", "consulta_id"),
-  CONSTRAINT "fk_medico_has_consulta_medico1"
-    FOREIGN KEY ("medico_id")
-    REFERENCES "medico" ("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT "fk_medico_has_consulta_consulta1"
-    FOREIGN KEY ("consulta_id")
-    REFERENCES "consulta" ("id")
+CREATE TABLE IF NOT EXISTS funcionario (
+  "idfuncionario" SERIAL,
+  "idusuario" INT NOT NULL,
+  "matricula" VARCHAR(45) NULL,
+  PRIMARY KEY ("idfuncionario"),
+  CONSTRAINT "fk_funcionario_usuario1"
+    FOREIGN KEY ("idusuario")
+    REFERENCES usuario ("idusuario")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table "medico_has_posto_saude"
+-- Table "administrador"
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS "medico_has_posto_saude" ;
-
-CREATE TABLE IF NOT EXISTS "medico_has_posto_saude" (
-  "medico_id" INT NOT NULL,
-  "posto_saude_id" INT NOT NULL,
-  PRIMARY KEY ("medico_id", "posto_saude_id"),
-  CONSTRAINT "fk_medico_has_posto_saude_medico1"
-    FOREIGN KEY ("medico_id")
-    REFERENCES "medico" ("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT "fk_medico_has_posto_saude_posto_saude1"
-    FOREIGN KEY ("posto_saude_id")
-    REFERENCES "posto_saude" ("id")
+CREATE TABLE IF NOT EXISTS administrador (
+  "idadministrador" SERIAL,
+  "codadministrador" INT NULL,
+  "idusuario" INT NOT NULL,
+  PRIMARY KEY ("idadministrador"),
+  CONSTRAINT "fk_administrador_usuario1"
+    FOREIGN KEY ("idusuario")
+    REFERENCES usuario ("idusuario")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table "agenda"
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS agenda (
+  "idagenda" SERIAL,
+  "data" DATE NULL,
+  "horario" TIME NULL,
+  "medico_idmedico" INT NOT NULL,
+  "disponibilidade" INT NULL,
+  PRIMARY KEY ("idagenda"),
+  CONSTRAINT "fk_agenda_medico1"
+    FOREIGN KEY ("medico_idmedico")
+    REFERENCES medico ("idmedico")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table "consulta"
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS consulta (
+  "idconsulta" SERIAL,
+  "agenda_idagenda" INT NOT NULL,
+  "paciente_idpaciente" INT NOT NULL,
+  PRIMARY KEY ("idconsulta"),
+  CONSTRAINT "fk_consulta_agenda1"
+    FOREIGN KEY ("agenda_idagenda")
+    REFERENCES agenda ("idagenda")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT "fk_consulta_paciente1"
+    FOREIGN KEY ("paciente_idpaciente")
+    REFERENCES paciente ("idpaciente")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+select * from usuario;
+select * from endereco;
+select * from unidadedesaude;
+
+insert into endereco ("rua", "numero", "bairro", "estado", "pais")
+VALUES ('rua do marcos', 15, 'heliopolis', 'pernambuco', 'brasil');
+
+INSERT INTO unidadedesaude ("nome") 
+VALUES ('unidade caucaia');
+
+insert into usuario ("login", "senha", "nome", "telefone", "idendereco", "idunidadedesaude") 
+VALUES ('conta', 'senha123', 'davi', '87992612633', 1, 1);

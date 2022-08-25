@@ -1,17 +1,20 @@
 package io.github.worthdavi.postosaude.model;
 
+import java.time.LocalTime;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import io.github.worthdavi.postosaude.enums.StatusConsultaEnum;
+import io.github.worthdavi.postosaude.enums.DisponibilidadeEnum;
 
 @Entity
 @Table(name = "agenda")
@@ -19,60 +22,82 @@ public class Agenda {
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@Column(name="idagenda")
+	private Integer idAgenda;
 	
 	private Date data;
-	private String status;
+	private LocalTime horario;
 	
-	@Transient
-	private StatusConsultaEnum statusEnum;
+	@Column(name="disponibilidade")
+	@Enumerated(EnumType.STRING)
+	private DisponibilidadeEnum disponibilidade;
 		
 	@OneToOne
-	@JoinColumn(name = "consulta_id")
-	private Consulta consulta;
-	
-	public Agenda(Integer id, Date data, String status, Consulta consulta) {
-		super();
-		this.id = id;
-		this.data = data;
-		this.status = status;
-		this.consulta = consulta;
-	}
+	@JoinColumn(name = "idmedico")
+	private Medico medico;
 
-	public Agenda() {
-		super();
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
+	/**
+	 * @return the data
+	 */
 	public Date getData() {
 		return data;
 	}
 
+	/**
+	 * @param data the data to set
+	 */
 	public void setData(Date data) {
 		this.data = data;
 	}
 
-	public String getStatus() {
-		return status;
+	/**
+	 * @return the horario
+	 */
+	public LocalTime getHorario() {
+		return horario;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	/**
+	 * @param horario the horario to set
+	 */
+	public void setHorario(LocalTime horario) {
+		this.horario = horario;
 	}
 
-	public Consulta getConsulta() {
-		return consulta;
+	/**
+	 * @return the medico
+	 */
+	public Medico getMedico() {
+		return medico;
 	}
 
-	public void setConsulta(Consulta consulta) {
-		this.consulta = consulta;
+	/**
+	 * @param medico the medico to set
+	 */
+	public void setMedico(Medico medico) {
+		this.medico = medico;
 	}
 
+	/**
+	 * @return the idAgenda
+	 */
+	public Integer getIdAgenda() {
+		return idAgenda;
+	}
+
+	/**
+	 * @return the disponibilidade
+	 */
+	public DisponibilidadeEnum getDisponibilidade() {
+		return disponibilidade;
+	}
+
+	/**
+	 * @param disponibilidade the disponibilidade to set
+	 */
+	public void setDisponibilidade(DisponibilidadeEnum disponibilidade) {
+		this.disponibilidade = disponibilidade;
+	}
+	
+	
 }

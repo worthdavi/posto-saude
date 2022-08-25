@@ -1,33 +1,52 @@
-package io.github.worthdavi.postosaude.model;
+package io.github.worthdavi.postosaude.to;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import io.github.worthdavi.postosaude.model.Endereco;
 
-import io.github.worthdavi.postosaude.to.EnderecoTO;
-
-@Entity
-@Table(name = "endereco")
-public class Endereco {
+public class EnderecoTO {
 	
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idendereco")
 	private Integer idEndereco;
-	
 	private String rua;
 	private Integer numero;
 	private String bairro;
 	private String estado;
 	private String pais;
 	
+	/**
+	 * 
+	 */
+	public EnderecoTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * @param idEndereco
+	 * @param rua
+	 * @param numero
+	 * @param bairro
+	 * @param estado
+	 * @param pais
+	 */
+	public EnderecoTO(Integer idEndereco, String rua, Integer numero, String bairro, String estado, String pais) {
+		super();
+		this.idEndereco = idEndereco;
+		this.rua = rua;
+		this.numero = numero;
+		this.bairro = bairro;
+		this.estado = estado;
+		this.pais = pais;
+	}
+	/**
+	 * @return the idEndereco
+	 */
+	public Integer getIdEndereco() {
+		return idEndereco;
+	}
+	/**
+	 * @param idEndereco the idEndereco to set
+	 */
+	public void setIdEndereco(Integer idEndereco) {
+		this.idEndereco = idEndereco;
+	}
 	/**
 	 * @return the rua
 	 */
@@ -88,14 +107,14 @@ public class Endereco {
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
-	/**
-	 * @return the idEndereco
-	 */
-	public Integer getIdEndereco() {
-		return idEndereco;
+	public Endereco toModel() {
+		Endereco endereco = new Endereco();
+		endereco.setRua(this.rua);
+		endereco.setBairro(this.bairro);
+		endereco.setEstado(this.estado);
+		endereco.setNumero(this.numero);
+		endereco.setPais(this.pais);
+		return endereco;
 	}
 	
-	public EnderecoTO toForm() {
-		return new EnderecoTO(this.idEndereco, this.rua, this.numero, this.bairro, this.estado, this.pais);
-	}	
 }

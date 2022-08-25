@@ -8,98 +8,121 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import io.github.worthdavi.postosaude.enums.TipoUsuarioEnum;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "usuario")
 public class Usuario {
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-	private Integer id;
+	@Column(name="idusuario")
+	private Integer idUsuario;
+	
+	private String login;
+	private String senha;
+	private String nome;
+	private String telefone;
 		
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    @JoinColumn(name = "idendereco")
 	private Endereco endereco;
 	
-	@Column(name = "nome")
-	private String nome;
-	
-	@Column(name = "nascimento")
-	private Date nascimento;
-	
-	@Column(name = "login")
-	private String login;
-	
-	@Column(name = "password")
-	private String password;
-	
-	@Transient
-	private TipoUsuarioEnum tipoUsuario;
-	
-	public Integer getId() {
-		return id;
-	}
-	
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
-	public Endereco getEndereco() {
-		return endereco;
-	}
-	
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-	
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-	public Date getNascimento() {
-		return nascimento;
-	}
-	
-	public void setNascimento(Date nascimento) {
-		this.nascimento = nascimento;
-	}
-	
+	@OneToOne
+    @JoinColumn(name = "idunidadedesaude")
+	private UnidadeDeSaude unidade;
+
+	/**
+	 * @return the login
+	 */
 	public String getLogin() {
 		return login;
 	}
-	
+
+	/**
+	 * @param login the login to set
+	 */
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public TipoUsuarioEnum getTipoUsuario() {
-		return tipoUsuario;
-	}
-	
-	public void setTipoUsuario(TipoUsuarioEnum tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
+
+	/**
+	 * @return the senha
+	 */
+	public String getSenha() {
+		return senha;
 	}
 
+	/**
+	 * @param senha the senha to set
+	 */
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	/**
+	 * @return the nome
+	 */
+	public String getNome() {
+		return nome;
+	}
+
+	/**
+	 * @param nome the nome to set
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	/**
+	 * @return the telefone
+	 */
+	public String getTelefone() {
+		return telefone;
+	}
+
+	/**
+	 * @param telefone the telefone to set
+	 */
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	/**
+	 * @return the endereco
+	 */
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	/**
+	 * @param endereco the endereco to set
+	 */
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	/**
+	 * @return the idUsuario
+	 */
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+
+	/**
+	 * @return the unidade
+	 */
+	public UnidadeDeSaude getUnidadeDeSaude() {
+		return unidade;
+	}
+
+	/**
+	 * @param unidade the unidade to set
+	 */
+	public void setUnidadeDeSaude(UnidadeDeSaude unidade) {
+		this.unidade = unidade;
+	}
+	
 }

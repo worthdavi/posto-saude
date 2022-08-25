@@ -1,79 +1,101 @@
 package io.github.worthdavi.postosaude.to;
 
+import java.time.LocalTime;
 import java.util.Date;
 
-import javax.persistence.Transient;
-
-import io.github.worthdavi.postosaude.enums.StatusConsultaEnum;
-import io.github.worthdavi.postosaude.model.Agenda;
-import io.github.worthdavi.postosaude.model.Usuario;
-
 public class AgendaTO {
-
-	private Integer id;
+	
+	private Integer idAgenda;
+	
 	private Date data;
-	private String status;
-	private StatusConsultaEnum statusEnum;
-
+	private LocalTime horario;
+	private String disponibilidade;
+	private Integer idMedico;
+	
+	/**
+	 * 
+	 */
 	public AgendaTO() {
 		super();
 	}
-	
-	public AgendaTO(Integer id, Date data, String status) {
+
+	/**
+	 * @param idAgenda
+	 * @param data
+	 * @param horario
+	 * @param disponibilidade
+	 * @param idMedico
+	 */
+	public AgendaTO(Integer idAgenda, Date data, LocalTime horario, String disponibilidade, Integer idMedico) {
 		super();
-		this.id = id;
+		this.idAgenda = idAgenda;
 		this.data = data;
-		this.status = status;
-	}
-	
-	public Agenda tranformIntoEntity() {
-		Agenda agenda = new Agenda();
-		agenda.setId(id);
-		agenda.setData(data);
-		agenda.setStatus(status);
-		return agenda;
-	}
-	
-	public static AgendaTO transformIntoTO(Agenda agenda) {
-		AgendaTO agendaTO = new AgendaTO();
-		agendaTO.setId(agenda.getId());
-		agendaTO.setData(agenda.getData());
-		agendaTO.setStatus(agenda.getStatus());
-		return agendaTO;
+		this.horario = horario;
+		this.disponibilidade = disponibilidade;
+		this.idMedico = idMedico;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
+	/**
+	 * @return the data
+	 */
 	public Date getData() {
 		return data;
 	}
 
+	/**
+	 * @param data the data to set
+	 */
 	public void setData(Date data) {
 		this.data = data;
 	}
 
-	public String getStatus() {
-		return status;
+	/**
+	 * @return the horario
+	 */
+	public LocalTime getHorario() {
+		return horario;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	/**
+	 * @param horario the horario to set
+	 */
+	public void setHorario(LocalTime horario) {
+		this.horario = horario;
 	}
 
-	public StatusConsultaEnum getStatusEnum() {
-		return statusEnum;
+	/**
+	 * @return the disponibilidade
+	 */
+	public String getDisponibilidade() {
+		return disponibilidade;
 	}
 
-	public void setStatusEnum(StatusConsultaEnum statusEnum) {
-		this.statusEnum = statusEnum;
+	/**
+	 * @param disponibilidade the disponibilidade to set
+	 */
+	public void setDisponibilidade(String disponibilidade) {
+		this.disponibilidade = disponibilidade;
 	}
-	
-	
+
+	/**
+	 * @return the idMedico
+	 */
+	public Integer getIdMedico() {
+		return idMedico;
+	}
+
+	/**
+	 * @param idMedico the idMedico to set
+	 */
+	public void setIdMedico(Integer idMedico) {
+		this.idMedico = idMedico;
+	}
+
+	/**
+	 * @return the idAgenda
+	 */
+	public Integer getIdAgenda() {
+		return idAgenda;
+	}
 	
 }
