@@ -1,7 +1,5 @@
 package io.github.worthdavi.postosaude.model;
 
-import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,28 +9,38 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-		
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idusuario")
+	@Column(name = "idusuario")
 	private Integer idUsuario;
-	
+
 	private String login;
 	private String senha;
 	private String nome;
 	private String telefone;
-		
+
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idendereco")
+	@JoinColumn(name = "idendereco")
 	private Endereco endereco;
-	
+
 	@OneToOne
-    @JoinColumn(name = "idunidadedesaude")
+	@JoinColumn(name = "idunidadedesaude")
 	private UnidadeDeSaude unidade;
+
+	@Transient
+	private Integer tipoUsuario;
+
+	@Transient
+	private String CPF;
+
+	@Transient
+	private String CRM;
 
 	/**
 	 * @return the login
@@ -124,5 +132,47 @@ public class Usuario {
 	public void setUnidadeDeSaude(UnidadeDeSaude unidade) {
 		this.unidade = unidade;
 	}
-	
+
+	/**
+	 * @return the tipoUsuario
+	 */
+	public Integer getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	/**
+	 * @param tipoUsuario the tipoUsuario to set
+	 */
+	public void setTipoUsuario(Integer tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
+	/**
+	 * @return the CPF
+	 */
+	public String getCPF() {
+		return CPF;
+	}
+
+	/**
+	 * @param CPF the CPF to set
+	 */
+	public void setCPF(String CPF) {
+		this.CPF = CPF;
+	}
+
+	/**
+	 * @return the CRM
+	 */
+	public String getCRM() {
+		return CRM;
+	}
+
+	/**
+	 * @param CRM the CRM to set
+	 */
+	public void setCRM(String CRM) {
+		this.CRM = CRM;
+	}
+
 }

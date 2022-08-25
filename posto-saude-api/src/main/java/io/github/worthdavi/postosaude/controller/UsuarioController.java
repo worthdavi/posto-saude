@@ -23,27 +23,27 @@ import io.github.worthdavi.postosaude.to.UsuarioTO;
 @RequestMapping("/api/usuarios")
 @CrossOrigin("*")
 public class UsuarioController {
-	
+
 	@Autowired
 	private UsuarioASLocal usuarioAS;
-	
+
 	@GetMapping("{id}")
-	public ResponseEntity<Usuario> getById(@PathVariable Integer id){
+	public ResponseEntity<Usuario> getById(@PathVariable Integer id) {
 		Optional<Usuario> usuarioData = usuarioAS.buscarUsuarioById(id);
-	    if (usuarioData.isPresent()) {
-	      return new ResponseEntity<>(usuarioData.get(), HttpStatus.OK);
-	    } else {
-	      return new ResponseEntity<>(usuarioData.get(), HttpStatus.NOT_FOUND);
-	    }	
+		if (usuarioData.isPresent()) {
+			return new ResponseEntity<>(usuarioData.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(usuarioData.get(), HttpStatus.NOT_FOUND);
+		}
 	}
-	
+
 	@PostMapping("/add")
-	public UsuarioTO inserirUsuario(@RequestBody UsuarioTO usuarioTO){
-		return usuarioAS.inserirUsuario(usuarioTO);	
+	public UsuarioTO inserirUsuario(@RequestBody UsuarioTO usuarioTO) {
+		return usuarioAS.inserirUsuario(usuarioTO);
 	}
-	
+
 	@GetMapping("/listar")
-	public List<UsuarioTO> listarUsuarios(){
+	public List<UsuarioTO> listarUsuarios() {
 		return usuarioAS.listarUsuarios();
 	}
 

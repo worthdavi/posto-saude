@@ -110,12 +110,12 @@ CREATE TABLE IF NOT EXISTS administrador (
 CREATE TABLE IF NOT EXISTS agenda (
   "idagenda" SERIAL,
   "data" DATE NULL,
-  "horario" TIME NULL,
-  "medico_idmedico" INT NOT NULL,
+  "horario" TIMESTAMP NULL,
+  "idmedico" INT NOT NULL,
   "disponibilidade" INT NULL,
   PRIMARY KEY ("idagenda"),
   CONSTRAINT "fk_agenda_medico1"
-    FOREIGN KEY ("medico_idmedico")
+    FOREIGN KEY ("idmedico")
     REFERENCES medico ("idmedico")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
@@ -126,16 +126,16 @@ CREATE TABLE IF NOT EXISTS agenda (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS consulta (
   "idconsulta" SERIAL,
-  "agenda_idagenda" INT NOT NULL,
-  "paciente_idpaciente" INT NOT NULL,
+  "idagenda" INT NOT NULL,
+  "idpaciente" INT NOT NULL,
   PRIMARY KEY ("idconsulta"),
   CONSTRAINT "fk_consulta_agenda1"
-    FOREIGN KEY ("agenda_idagenda")
+    FOREIGN KEY ("idagenda")
     REFERENCES agenda ("idagenda")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT "fk_consulta_paciente1"
-    FOREIGN KEY ("paciente_idpaciente")
+    FOREIGN KEY ("idpaciente")
     REFERENCES paciente ("idpaciente")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
@@ -152,5 +152,44 @@ VALUES ('rua do marcos', 15, 'heliopolis', 'pernambuco', 'brasil');
 INSERT INTO unidadedesaude ("nome") 
 VALUES ('unidade caucaia');
 
+
+-- cria usuario para testar listagem
 insert into usuario ("login", "senha", "nome", "telefone", "idendereco", "idunidadedesaude") 
 VALUES ('conta', 'senha123', 'davi', '87992612633', 1, 1);
+
+/*
+{
+    "idUsuario": 3,
+    "login": "logindemedico",
+    "senha": "senhademedico",
+    "nome": "nomedepedico",
+    "telefone": "1287312",
+    "endereco": {
+        "idEndereco": 0,
+        "rua": "ruademedico",
+        "numero": 15,
+        "bairro": "bairrodemedico",
+        "estado": "estadodemedico",
+        "pais": "brasil"
+    },
+    "unidade": {
+        "idUnidade": 1,
+        "nome": "unidade caucaia"
+    },
+    "unidadeDeSaude": {
+        "idUnidade": 1,
+        "nome": "unidade caucaia"
+    },
+    "tipoUsuario": 1,
+    "cpf": "128378239",
+}
+  tipoUsuario 1 = paciente
+  tipoUsuario 2 = medico
+  tipoUsuario 3 = funcionario (nao fiz ainda)
+  crm/cpf devem ser preenchidos no json
+*/
+
+
+-- cria agenda para testar listagem
+insert into agenda ("data", "horario", "medico_idmedico", "disponibilidade")
+  values ('2022-02-21', '2022-02-21 15:16:17', 1, 1)

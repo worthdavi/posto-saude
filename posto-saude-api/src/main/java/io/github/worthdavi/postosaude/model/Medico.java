@@ -1,6 +1,5 @@
 package io.github.worthdavi.postosaude.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import io.github.worthdavi.postosaude.to.MedicoTO;
 
 @Entity
 @Table(name = "medico")
@@ -22,7 +23,7 @@ public class Medico {
 	@Column(name="crm")
 	private String CRM;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
 	private Usuario usuario;
 
@@ -61,5 +62,7 @@ public class Medico {
 		return idMedico;
 	}	
 	
-	
+	public MedicoTO toForm() {
+		return new MedicoTO(this.idMedico, this.CRM, this.usuario.getIdUsuario());
+	}
 }

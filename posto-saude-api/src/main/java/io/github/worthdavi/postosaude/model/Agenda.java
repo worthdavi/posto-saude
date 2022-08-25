@@ -1,20 +1,22 @@
 package io.github.worthdavi.postosaude.model;
 
-import java.time.LocalTime;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PostPersist;
 import javax.persistence.Table;
 
-import io.github.worthdavi.postosaude.enums.DisponibilidadeEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import io.github.worthdavi.postosaude.to.AgendaTO;
 
 @Entity
 @Table(name = "agenda")
@@ -26,15 +28,21 @@ public class Agenda {
 	private Integer idAgenda;
 	
 	private Date data;
-	private LocalTime horario;
+	
+	@JsonFormat(pattern = "YYYY-MM-dd HH:mm")
+	private Date horario;
 	
 	@Column(name="disponibilidade")
-	@Enumerated(EnumType.STRING)
-	private DisponibilidadeEnum disponibilidade;
+	private Integer disponibilidade;
 		
 	@OneToOne
 	@JoinColumn(name = "idmedico")
 	private Medico medico;
+	
+	@PostPersist
+	public void postPersist() throws ParseException {
+		setHorario(new Date(horario.getTime()));
+	}
 
 	/**
 	 * @return the data
@@ -53,14 +61,14 @@ public class Agenda {
 	/**
 	 * @return the horario
 	 */
-	public LocalTime getHorario() {
+	public Date getHorario() {
 		return horario;
 	}
 
 	/**
 	 * @param horario the horario to set
 	 */
-	public void setHorario(LocalTime horario) {
+	public void setHorario(Date horario) {
 		this.horario = horario;
 	}
 
@@ -88,16 +96,20 @@ public class Agenda {
 	/**
 	 * @return the disponibilidade
 	 */
-	public DisponibilidadeEnum getDisponibilidade() {
+	public Integer getDisponibilidade() {
 		return disponibilidade;
 	}
 
 	/**
 	 * @param disponibilidade the disponibilidade to set
 	 */
-	public void setDisponibilidade(DisponibilidadeEnum disponibilidade) {
+	public void setDisponibilidade(Integer disponibilidade) {
 		this.disponibilidade = disponibilidade;
 	}
+	
+	public AgendaTO toForm() {
+		return new AgendaTO(this.idAgenda, this.data, this.horario, this.disponibilidade, this.medico.toForm());
+	}	
 	
 	
 }

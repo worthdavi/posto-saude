@@ -16,7 +16,7 @@ public class Consulta {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idaconsulta")
+	@Column(name="idconsulta")
 	private Integer idConsulta;
 	
 	@OneToOne

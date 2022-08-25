@@ -1,6 +1,5 @@
 package io.github.worthdavi.postosaude.to;
 
-import java.time.LocalTime;
 import java.util.Date;
 
 public class AgendaTO {
@@ -8,9 +7,9 @@ public class AgendaTO {
 	private Integer idAgenda;
 	
 	private Date data;
-	private LocalTime horario;
-	private String disponibilidade;
-	private Integer idMedico;
+	private Date horario;
+	private Integer disponibilidade;
+	private MedicoTO medico;
 	
 	/**
 	 * 
@@ -26,13 +25,13 @@ public class AgendaTO {
 	 * @param disponibilidade
 	 * @param idMedico
 	 */
-	public AgendaTO(Integer idAgenda, Date data, LocalTime horario, String disponibilidade, Integer idMedico) {
+	public AgendaTO(Integer idAgenda, Date data, Date horario, Integer disponibilidade, MedicoTO medico) {
 		super();
 		this.idAgenda = idAgenda;
 		this.data = data;
 		this.horario = horario;
 		this.disponibilidade = disponibilidade;
-		this.idMedico = idMedico;
+		this.medico = medico;
 	}
 
 	/**
@@ -52,43 +51,44 @@ public class AgendaTO {
 	/**
 	 * @return the horario
 	 */
-	public LocalTime getHorario() {
+	public Date getHorario() {
 		return horario;
 	}
 
 	/**
 	 * @param horario the horario to set
 	 */
-	public void setHorario(LocalTime horario) {
+	public void setHorario(Date horario) {
 		this.horario = horario;
 	}
 
 	/**
 	 * @return the disponibilidade
 	 */
-	public String getDisponibilidade() {
+	public Integer getDisponibilidade() {
 		return disponibilidade;
 	}
 
 	/**
 	 * @param disponibilidade the disponibilidade to set
 	 */
-	public void setDisponibilidade(String disponibilidade) {
+	public void setDisponibilidade(Integer disponibilidade) {
 		this.disponibilidade = disponibilidade;
 	}
 
+
 	/**
-	 * @return the idMedico
+	 * @return the medico
 	 */
-	public Integer getIdMedico() {
-		return idMedico;
+	public MedicoTO getMedico() {
+		return medico;
 	}
 
 	/**
-	 * @param idMedico the idMedico to set
+	 * @param medico the medico to set
 	 */
-	public void setIdMedico(Integer idMedico) {
-		this.idMedico = idMedico;
+	public void setMedico(MedicoTO medico) {
+		this.medico = medico;
 	}
 
 	/**
