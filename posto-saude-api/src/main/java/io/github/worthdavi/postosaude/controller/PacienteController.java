@@ -1,6 +1,5 @@
 package io.github.worthdavi.postosaude.controller;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -15,34 +14,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.worthdavi.postosaude.model.Medico;
-import io.github.worthdavi.postosaude.service.MedicoASLocal;
-import io.github.worthdavi.postosaude.to.MedicoTO;
+import io.github.worthdavi.postosaude.model.Paciente;
+import io.github.worthdavi.postosaude.service.PacienteASLocal;
+import io.github.worthdavi.postosaude.to.PacienteTO;
 
 @RestController
-@RequestMapping("/api/medico")
+@RequestMapping("/api/paciente")
 @CrossOrigin("*")
-public class MedicoController {
-	
+public class PacienteController {
+
 	@Autowired
-	private MedicoASLocal medicoAS;
+	private PacienteASLocal pacienteAS;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<MedicoTO> buscar(@PathVariable Integer id) {
-		Optional<Medico> optionalMedico = medicoAS.buscar(id);
-		if(!optionalMedico.isPresent() || optionalMedico.isEmpty()) {
+	public ResponseEntity<PacienteTO> buscar(@PathVariable Integer id) {
+		Optional<Paciente> optionalPaciente = pacienteAS.buscar(id);
+		if(!optionalPaciente.isPresent() || optionalPaciente.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		return new ResponseEntity<MedicoTO>(optionalMedico.get().toForm(), HttpStatus.OK);
+		return new ResponseEntity<PacienteTO>(optionalPaciente.get().toForm(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/listar")
-	public List<MedicoTO> listar() {
-		return medicoAS.listar();
+	public List<PacienteTO> listar() {
+		return pacienteAS.listar();
 	}
-	
+
 	@PutMapping("/atualizar/{id}")
-	public ResponseEntity<Void> atualizar(@PathVariable Integer id, @RequestBody MedicoTO medico) {
-		return medicoAS.atualizar(id, medico);
+	public ResponseEntity<Void> atualizar(@PathVariable Integer id, @RequestBody PacienteTO paciente) {
+		return pacienteAS.atualizar(id, paciente);
 	}
 }

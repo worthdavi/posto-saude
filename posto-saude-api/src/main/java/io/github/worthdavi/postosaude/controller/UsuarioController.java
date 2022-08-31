@@ -50,5 +50,5 @@ public class UsuarioController {
 	public List<UsuarioTO> listar() {
 		return usuarioAS.listar();
 	}
-
+	
 }

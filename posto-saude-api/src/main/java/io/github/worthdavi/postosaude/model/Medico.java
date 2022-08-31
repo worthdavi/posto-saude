@@ -14,17 +14,17 @@ import io.github.worthdavi.postosaude.to.MedicoTO;
 @Entity
 @Table(name = "medico")
 public class Medico {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idmedico")
+	@Column(name = "idmedico")
 	private Integer idMedico;
-	
-	@Column(name="crm")
+
+	@Column(name = "crm")
 	private String CRM;
-	
+
 	@OneToOne
-    @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
+	@JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
 	private Usuario usuario;
 
 	/**
@@ -56,12 +56,19 @@ public class Medico {
 	}
 
 	/**
+	 * @param idMedico the idMedico to set
+	 */
+	public void setIdMedico(Integer idMedico) {
+		this.idMedico = idMedico;
+	}
+
+	/**
 	 * @return the idMedico
 	 */
 	public Integer getIdMedico() {
 		return idMedico;
-	}	
-	
+	}
+
 	public MedicoTO toForm() {
 		return new MedicoTO(this.idMedico, this.CRM, this.usuario.getIdUsuario());
 	}
