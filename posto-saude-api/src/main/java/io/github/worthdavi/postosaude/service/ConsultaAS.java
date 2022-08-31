@@ -16,7 +16,6 @@ import io.github.worthdavi.postosaude.repository.AgendaRepository;
 import io.github.worthdavi.postosaude.repository.ConsultaRepository;
 import io.github.worthdavi.postosaude.repository.PacienteRepository;
 import io.github.worthdavi.postosaude.to.ConsultaTO;
-import io.github.worthdavi.postosaude.to.UsuarioTO;
 
 @Service
 public class ConsultaAS implements ConsultaASLocal {

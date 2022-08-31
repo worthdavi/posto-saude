@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.worthdavi.postosaude.model.Agenda;
 import io.github.worthdavi.postosaude.service.AgendaASLocal;
 import io.github.worthdavi.postosaude.to.AgendaTO;
 
@@ -24,12 +23,12 @@ public class AgendaController {
 	private AgendaASLocal agendaAS;
 
 	@GetMapping("/listar/{id}")
-	public List<AgendaTO> listarAgendaPorMedico(@PathVariable Integer id) {
+	public List<AgendaTO> listarPorMedico(@PathVariable Integer id) {
 		return agendaAS.listarAgendasPorMedico(id);
 	}
-	
+
 	@PostMapping("/criar/{id}")
-	public AgendaTO criarAgenda(@RequestBody AgendaTO agenda, @PathVariable Integer id) {
+	public AgendaTO inserir(@RequestBody AgendaTO agenda, @PathVariable Integer id) {
 		return agendaAS.criarAgenda(id, agenda);
 	}
 

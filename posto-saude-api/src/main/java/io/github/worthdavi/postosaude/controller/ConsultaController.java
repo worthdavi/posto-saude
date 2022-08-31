@@ -26,7 +26,7 @@ public class ConsultaController {
 	private ConsultaASLocal consultaAS;
 	
 	@GetMapping("/listar")
-	public List<ConsultaTO> listarTodasConsultas() {
+	public List<ConsultaTO> listar() {
 		return consultaAS.listarTodasConsultas();
 	}
 

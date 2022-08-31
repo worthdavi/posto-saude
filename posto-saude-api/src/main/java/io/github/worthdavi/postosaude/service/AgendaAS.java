@@ -1,7 +1,5 @@
 package io.github.worthdavi.postosaude.service;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +21,16 @@ public class AgendaAS implements AgendaASLocal {
 
 	@Autowired
 	private AgendaRepository agendaRepository;
-	
+
 	@Autowired
 	private MedicoRepository medicoRepository;
-	
+
 	DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
 
 	@Override
 	public AgendaTO criarAgenda(Integer idMedico, AgendaTO agendaTO) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Optional<Medico> medicoOptional = medicoRepository.findById(idMedico);
-		if(medicoOptional == null) {
+		if (medicoOptional == null) {
 			throw new EntityNotFoundException();
 		}
 		Medico medico = medicoOptional.get();
@@ -43,17 +40,19 @@ public class AgendaAS implements AgendaASLocal {
 		agenda.setHorario(agendaTO.getHorario());
 		agenda.setMedico(medico);
 		agendaRepository.save(agenda);
-		return new AgendaTO(agenda.getIdAgenda(), agenda.getData(), agenda.getHorario(), agenda.getDisponibilidade(), agenda.getMedico().toForm());
+		return new AgendaTO(agenda.getIdAgenda(), agenda.getData(), agenda.getHorario(), agenda.getDisponibilidade(),
+				agenda.getMedico().toForm());
 	}
 
 	@Override
 	public List<AgendaTO> listarAgendasPorMedico(Integer id) {
 		List<AgendaTO> lista = new ArrayList<AgendaTO>();
 		agendaRepository.findAll().stream().forEach(agenda -> {
-			if(agenda.getMedico().getIdMedico() == id) {
-				AgendaTO agendaTO = new AgendaTO(agenda.getIdAgenda(), agenda.getData(), agenda.getHorario(), agenda.getDisponibilidade(), agenda.getMedico().toForm());
+			if (agenda.getMedico().getIdMedico() == id) {
+				AgendaTO agendaTO = new AgendaTO(agenda.getIdAgenda(), agenda.getData(), agenda.getHorario(),
+						agenda.getDisponibilidade(), agenda.getMedico().toForm());
 				lista.add(agendaTO);
-			}		
+			}
 		});
 		return lista;
 	}

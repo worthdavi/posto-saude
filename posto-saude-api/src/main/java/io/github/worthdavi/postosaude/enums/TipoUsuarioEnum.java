@@ -9,7 +9,9 @@ package io.github.worthdavi.postosaude.enums;
  */
 public enum TipoUsuarioEnum {
 	PACIENTE(1, "Paciente"),
-	MEDICO(2, "Medico");
+	MEDICO(2, "Medico"),
+	FUNCIONARIO(3, "Funcionario"),
+	ADMINISTRADOR(4, "Administrador");
 	
 	private Integer id;
 	private String nome;

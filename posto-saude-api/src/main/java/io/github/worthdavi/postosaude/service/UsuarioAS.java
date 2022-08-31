@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import io.github.worthdavi.postosaude.model.Endereco;
@@ -30,12 +31,12 @@ public class UsuarioAS implements UsuarioASLocal {
 	private MedicoRepository medicoRepository;
 
 	@Override
-	public Optional<Usuario> buscarUsuarioById(Integer id) {
+	public Optional<Usuario> buscar(Integer id) {
 		return usuarioRepository.findById(id);
 	}
 
 	@Override
-	public UsuarioTO inserirUsuario(UsuarioTO usuarioTO) {
+	public UsuarioTO inserir(UsuarioTO usuarioTO) {
 		Endereco endereco = usuarioTO.getEndereco().toModel();
 		Usuario usuario = usuarioTO.toModel();
 		UnidadeDeSaude unidade = usuarioTO.getUnidadeDeSaude().toModel();
@@ -62,7 +63,7 @@ public class UsuarioAS implements UsuarioASLocal {
 	}
 
 	@Override
-	public List<UsuarioTO> listarUsuarios() {
+	public List<UsuarioTO> listar() {
 		List<UsuarioTO> lista = new ArrayList<UsuarioTO>();
 		usuarioRepository.findAll().stream().forEach(usuario -> {
 			UsuarioTO usuarioTO = new UsuarioTO(usuario.getIdUsuario(), usuario.getLogin(), usuario.getSenha(),
@@ -71,6 +72,18 @@ public class UsuarioAS implements UsuarioASLocal {
 			lista.add(usuarioTO);
 		});
 		return lista;
+	}
+
+	@Override
+	public ResponseEntity<Void> atualizar(Integer id, UsuarioTO usuarioTO) {
+		Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+		if(!usuarioOptional.isPresent() || usuarioOptional.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		Usuario usuarioEntity = usuarioTO.toModel();
+		usuarioEntity.setIdUsuario(id);
+		usuarioRepository.save(usuarioEntity);
+		return ResponseEntity.ok().build();
 	}
 
 }

@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import io.github.worthdavi.postosaude.to.UsuarioTO;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -41,6 +43,8 @@ public class Usuario {
 
 	@Transient
 	private String CRM;
+	
+	
 
 	/**
 	 * @return the login
@@ -174,5 +178,29 @@ public class Usuario {
 	public void setCRM(String CRM) {
 		this.CRM = CRM;
 	}
+	
+	/**
+	 * @return the unidade
+	 */
+	public UnidadeDeSaude getUnidade() {
+		return unidade;
+	}
 
+	/**
+	 * @param unidade the unidade to set
+	 */
+	public void setUnidade(UnidadeDeSaude unidade) {
+		this.unidade = unidade;
+	}
+
+	/**
+	 * @param idUsuario the idUsuario to set
+	 */
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public UsuarioTO toForm() {
+		return new UsuarioTO(this.idUsuario, this.login, this.senha, this.nome, this.telefone, this.endereco.toForm(), this.unidade.toForm());
+	}
 }

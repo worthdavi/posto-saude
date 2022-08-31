@@ -1,7 +1,6 @@
 package io.github.worthdavi.postosaude.model;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -21,24 +20,24 @@ import io.github.worthdavi.postosaude.to.AgendaTO;
 @Entity
 @Table(name = "agenda")
 public class Agenda {
-		
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idagenda")
+	@Column(name = "idagenda")
 	private Integer idAgenda;
-	
+
 	private Date data;
-	
+
 	@JsonFormat(pattern = "YYYY-MM-dd HH:mm")
 	private Date horario;
-	
-	@Column(name="disponibilidade")
+
+	@Column(name = "disponibilidade")
 	private Integer disponibilidade;
-		
+
 	@OneToOne
 	@JoinColumn(name = "idmedico")
 	private Medico medico;
-	
+
 	@PostPersist
 	public void postPersist() throws ParseException {
 		setHorario(new Date(horario.getTime()));
@@ -106,10 +105,9 @@ public class Agenda {
 	public void setDisponibilidade(Integer disponibilidade) {
 		this.disponibilidade = disponibilidade;
 	}
-	
+
 	public AgendaTO toForm() {
 		return new AgendaTO(this.idAgenda, this.data, this.horario, this.disponibilidade, this.medico.toForm());
-	}	
-	
-	
+	}
+
 }

@@ -5,17 +5,17 @@ import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 
-import io.github.worthdavi.postosaude.model.Endereco;
 import io.github.worthdavi.postosaude.model.Usuario;
-import io.github.worthdavi.postosaude.to.EnderecoTO;
 import io.github.worthdavi.postosaude.to.UsuarioTO;
 
 public interface UsuarioASLocal {
-	
-	Optional<Usuario> buscarUsuarioById(Integer id);
 
-	List<UsuarioTO> listarUsuarios();
+	Optional<Usuario> buscar(Integer id);
+
+	List<UsuarioTO> listar();
 	
-	UsuarioTO inserirUsuario(UsuarioTO usuarioTO);
+	ResponseEntity<Void> atualizar(Integer id, UsuarioTO usuario);
+
+	UsuarioTO inserir(UsuarioTO usuarioTO);
 
 }

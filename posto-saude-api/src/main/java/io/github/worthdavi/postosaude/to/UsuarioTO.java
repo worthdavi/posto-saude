@@ -175,7 +175,8 @@ public class UsuarioTO {
 		usuario.setSenha(this.senha);
 		usuario.setNome(this.nome);
 		usuario.setTelefone(this.telefone);
-		usuario.setEndereco(null);
+		usuario.setEndereco(this.endereco.toModel());
+		usuario.setUnidadeDeSaude(this.unidade.toModel());
 		usuario.setTipoUsuario(this.tipoUsuario);
 		return usuario;
 	}
