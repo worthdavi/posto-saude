@@ -1,12 +1,9 @@
 package io.github.worthdavi.postosaude.to;
 
-import io.github.worthdavi.postosaude.model.Medico;
-import io.github.worthdavi.postosaude.model.Usuario;
-
 public class MedicoTO {
 
 	private Integer idMedico;
-	private String CRM;
+	private String crm;
 	private Integer idUsuario;
 
 	/**
@@ -19,13 +16,13 @@ public class MedicoTO {
 
 	/**
 	 * @param idMedico
-	 * @param CRM
+	 * @param crm
 	 * @param idUsuario
 	 */
-	public MedicoTO(Integer idMedico, String CRM, Integer idUsuario) {
+	public MedicoTO(Integer idMedico, String crm, Integer idUsuario) {
 		super();
 		this.idMedico = idMedico;
-		this.CRM = CRM;
+		this.crm = crm;
 		this.idUsuario = idUsuario;
 	}
 
@@ -44,17 +41,17 @@ public class MedicoTO {
 	}
 
 	/**
-	 * @return the cRM
+	 * @return the crm
 	 */
 	public String getCRM() {
-		return CRM;
+		return crm;
 	}
 
 	/**
-	 * @param cRM the cRM to set
+	 * @param crm the crm to set
 	 */
-	public void setCRM(String cRM) {
-		CRM = cRM;
+	public void setCRM(String crm) {
+		this.crm = crm;
 	}
 
 	/**
