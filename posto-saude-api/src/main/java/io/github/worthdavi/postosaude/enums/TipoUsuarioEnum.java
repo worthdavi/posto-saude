@@ -45,6 +45,4 @@ public enum TipoUsuarioEnum {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
 }

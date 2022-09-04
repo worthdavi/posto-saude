@@ -42,6 +42,7 @@ public class ConsultaAS implements ConsultaASLocal {
 		}
 		Paciente paciente = pacienteTemp.get();
 		Agenda agenda = agendaTemp.get();
+		agenda.setDisponibilidade("OCUPADO");
 		consulta.setAgenda(agenda);
 		consulta.setPaciente(paciente);
 		consultaRepository.save(consulta);

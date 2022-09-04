@@ -8,48 +8,60 @@ import api from "../../api";
 
 import { ModalComp } from "../../components/Modal";
 
-import { Row, Col } from "reactstrap";
+import { Row, Col, Input } from "reactstrap";
 import { MdAccountCircle } from "react-icons/md";
 
 export const ListDoctors = () => {
   const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
-  const [dataUser, setDataUsers] = useState([]);
-  const [idCurrentUser, setIdCurrentUser] = useState(null);
+  const [dataAgenda, setDataAgenda] = useState([]);
+  const [data, setData] = useState("2022-02-20")
+  const [idCurrentAgenda, setIdCurrentAgenda] = useState(0);
 
   useEffect(() => {
-    api.get("/api/usuario/listar").then((response) => {
-      setDataUsers(response.data);
+    api.get(`/api/agenda/listar/data/${data}`).then((response) => {
+      setDataAgenda(response.data);
     });
-  }, []);
+  }, [data]);
 
   const toggleModal = (id) => {
-    setIdCurrentUser(id);
-    if(id) {
-      setModal(!modal);
-    }
+    setIdCurrentAgenda(id);
+    setModal(!modal);
   };
 
   return (
     <Style.Container>
       <Row className="row-style-subjective" xs={1} md={4}>
-        <ModalComp toggleModal={toggleModal} idUser={idCurrentUser} isOpen={modal} />
-        {dataUser.length > 0 &&
-          dataUser.map((user) => {
+        <Input
+          placeholder="Data"
+          bsSize="lg"
+          className="input-register-style"
+          name="data"
+          value={data}
+          onChange={(event) => setData(event.target.value)}
+        />
+        <ModalComp toggleModal={toggleModal} idAgenda={idCurrentAgenda} isOpen={modal} />
+        {dataAgenda.length > 0 &&
+          dataAgenda.map((agenda) => {
             return (
-              <Col key={user.idUsuario} md={3} sm={6}>
+              <Col key={agenda.idAgenda} md={3} sm={6}>
                 <Style.CardListDoctors>
                   {false ? (
                     <Style.ImageProfile src={null} />
                   ) : (
                     <MdAccountCircle size={65} />
                   )}
-                  <Style.ButtonCard
-                    onClick={() =>toggleModal(3)}
-                  >
-                    Agendar
-                  </Style.ButtonCard>
+                  STATUS: {agenda.disponibilidade}
+                  {
+                    agenda.disponibilidade != "OCUPADO" ? (
+                      <Style.ButtonCard
+                        onClick={() =>toggleModal(agenda.idAgenda)}
+                      >
+                        Agendar
+                      </Style.ButtonCard>
+                    ) : <></>
+                  }
                 </Style.CardListDoctors>
               </Col>
             );

@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import io.github.worthdavi.postosaude.enums.TipoUsuarioEnum;
 import io.github.worthdavi.postosaude.to.AgendaTO;
 
 @Entity
@@ -28,20 +29,14 @@ public class Agenda {
 
 	private Date data;
 
-	@JsonFormat(pattern = "YYYY-MM-dd HH:mm")
-	private Date horario;
+	private String horario;
 
 	@Column(name = "disponibilidade")
-	private Integer disponibilidade;
+	private String disponibilidade;
 
 	@OneToOne
 	@JoinColumn(name = "idmedico")
 	private Medico medico;
-
-	@PostPersist
-	public void postPersist() throws ParseException {
-		setHorario(new Date(horario.getTime()));
-	}
 
 	/**
 	 * @return the data
@@ -60,14 +55,14 @@ public class Agenda {
 	/**
 	 * @return the horario
 	 */
-	public Date getHorario() {
+	public String getHorario() {
 		return horario;
 	}
 
 	/**
 	 * @param horario the horario to set
 	 */
-	public void setHorario(Date horario) {
+	public void setHorario(String horario) {
 		this.horario = horario;
 	}
 
@@ -95,14 +90,14 @@ public class Agenda {
 	/**
 	 * @return the disponibilidade
 	 */
-	public Integer getDisponibilidade() {
+	public String getDisponibilidade() {
 		return disponibilidade;
 	}
 
 	/**
 	 * @param disponibilidade the disponibilidade to set
 	 */
-	public void setDisponibilidade(Integer disponibilidade) {
+	public void setDisponibilidade(String disponibilidade) {
 		this.disponibilidade = disponibilidade;
 	}
 

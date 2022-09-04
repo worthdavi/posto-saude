@@ -110,9 +110,9 @@ CREATE TABLE IF NOT EXISTS administrador (
 CREATE TABLE IF NOT EXISTS agenda (
   "idagenda" SERIAL,
   "data" DATE NULL,
-  "horario" TIMESTAMP NULL,
+  "horario" VARCHAR(45) NULL,
   "idmedico" INT NOT NULL,
-  "disponibilidade" INT NULL,
+  "disponibilidade" VARCHAR(45) NULL,
   PRIMARY KEY ("idagenda"),
   CONSTRAINT "fk_agenda_medico1"
     FOREIGN KEY ("idmedico")

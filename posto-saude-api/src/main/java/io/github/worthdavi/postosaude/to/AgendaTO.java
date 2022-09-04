@@ -7,8 +7,8 @@ public class AgendaTO {
 	private Integer idAgenda;
 	
 	private Date data;
-	private Date horario;
-	private Integer disponibilidade;
+	private String horario;
+	private String disponibilidade;
 	private MedicoTO medico;
 	
 	/**
@@ -25,7 +25,7 @@ public class AgendaTO {
 	 * @param disponibilidade
 	 * @param idMedico
 	 */
-	public AgendaTO(Integer idAgenda, Date data, Date horario, Integer disponibilidade, MedicoTO medico) {
+	public AgendaTO(Integer idAgenda, Date data, String horario, String disponibilidade, MedicoTO medico) {
 		super();
 		this.idAgenda = idAgenda;
 		this.data = data;
@@ -51,28 +51,28 @@ public class AgendaTO {
 	/**
 	 * @return the horario
 	 */
-	public Date getHorario() {
+	public String getHorario() {
 		return horario;
 	}
 
 	/**
 	 * @param horario the horario to set
 	 */
-	public void setHorario(Date horario) {
+	public void setHorario(String horario) {
 		this.horario = horario;
 	}
 
 	/**
 	 * @return the disponibilidade
 	 */
-	public Integer getDisponibilidade() {
+	public String getDisponibilidade() {
 		return disponibilidade;
 	}
 
 	/**
 	 * @param disponibilidade the disponibilidade to set
 	 */
-	public void setDisponibilidade(Integer disponibilidade) {
+	public void setDisponibilidade(String disponibilidade) {
 		this.disponibilidade = disponibilidade;
 	}
 
