@@ -1,10 +1,13 @@
 package io.github.worthdavi.postosaude.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import io.github.worthdavi.postosaude.to.UnidadeDeSaudeTO;
@@ -18,7 +21,25 @@ public class UnidadeDeSaude {
 	@Column(name="idunidadedesaude")
 	private Integer idUnidade;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idendereco")
+	private Endereco endereco;
+	
 	String nome;
+	
+	/**
+	 * @return the endereco
+	 */
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	/**
+	 * @param endereco the endereco to set
+	 */
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
 	/**
 	 * @return the nome
@@ -50,7 +71,7 @@ public class UnidadeDeSaude {
 	}
 
 	public UnidadeDeSaudeTO toForm() {
-		return new UnidadeDeSaudeTO(this.idUnidade, this.nome);
+		return new UnidadeDeSaudeTO(this.idUnidade, this.nome, this.endereco.toForm());
 	}
 	
 }

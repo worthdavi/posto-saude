@@ -5,17 +5,34 @@ import io.github.worthdavi.postosaude.model.UnidadeDeSaude;
 public class UnidadeDeSaudeTO {
 	
 	private Integer idUnidade;
+	private EnderecoTO endereco;
 	private String nome;
 	
 	/**
 	 * @param idUnidade
 	 * @param nome
 	 */
-	public UnidadeDeSaudeTO(Integer idUnidade, String nome) {
+	public UnidadeDeSaudeTO(Integer idUnidade, String nome, EnderecoTO endereco) {
 		super();
 		this.idUnidade = idUnidade;
 		this.nome = nome;
+		this.endereco = endereco;
 	}
+	
+	/**
+	 * @return the endereco
+	 */
+	public EnderecoTO getEndereco() {
+		return endereco;
+	}
+
+	/**
+	 * @param endereco the endereco to set
+	 */
+	public void setEndereco(EnderecoTO endereco) {
+		this.endereco = endereco;
+	}
+
 	/**
 	 * @return the idUnidade
 	 */

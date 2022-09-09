@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.worthdavi.postosaude.model.UnidadeDeSaude;
 import io.github.worthdavi.postosaude.service.AdministradorASLocal;
 import io.github.worthdavi.postosaude.service.UnidadeDeSaudeASLocal;
 import io.github.worthdavi.postosaude.to.UnidadeDeSaudeTO;
@@ -45,7 +46,7 @@ public class UnidadeDeSaudeController {
 	}
 	
 	@GetMapping("/listar")
-	public List<UnidadeDeSaudeTO> listar() {
+	public List<UnidadeDeSaude> listar() {
 		return unidadeDeSaudeAS.listar();
 	}
 	

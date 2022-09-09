@@ -47,18 +47,14 @@ public class UnidadeDeSaudeAS implements UnidadeDeSaudeASLocal {
 		UnidadeDeSaude unidadeEntity = new UnidadeDeSaude();
 		unidadeEntity.setIdUnidade(unidade.getIdUnidade());
 		unidadeEntity.setNome(unidade.getNome());
+		unidadeEntity.setEndereco(unidade.getEndereco().toModel());
 		unidadeDeSaudeRepository.save(unidadeEntity);
 		return new ResponseEntity<UnidadeDeSaudeTO>(unidadeEntity.toForm(), HttpStatus.OK);
 	}
 	
 	@Override
-	public List<UnidadeDeSaudeTO> listar() {
-		List<UnidadeDeSaudeTO> lista = new ArrayList<UnidadeDeSaudeTO>();
-		unidadeDeSaudeRepository.findAll().stream().forEach(unidade -> {
-			UnidadeDeSaudeTO unidadeTO = new UnidadeDeSaudeTO(unidade.getIdUnidade(), unidade.getNome());
-			lista.add(unidadeTO);
-		});
-		return lista;
+	public List<UnidadeDeSaude> listar() {
+		return unidadeDeSaudeRepository.findAll();
 	}
 
 	@Override
@@ -76,7 +72,7 @@ public class UnidadeDeSaudeAS implements UnidadeDeSaudeASLocal {
 	public List<UnidadeDeSaudeTO> listarPorNome(String nome) {
 		List<UnidadeDeSaudeTO> lista = new ArrayList<UnidadeDeSaudeTO>();
 		unidadeDeSaudeRepository.findAllByNomeContains(nome).stream().forEach(unidade -> {
-			UnidadeDeSaudeTO unidadeTO = new UnidadeDeSaudeTO(unidade.getIdUnidade(), unidade.getNome());
+			UnidadeDeSaudeTO unidadeTO = new UnidadeDeSaudeTO(unidade.getIdUnidade(), unidade.getNome(), unidade.getEndereco().toForm());
 			lista.add(unidadeTO);
 		});
 		return lista;

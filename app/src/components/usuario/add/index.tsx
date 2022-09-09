@@ -119,7 +119,7 @@ export const addUsuario = () => {
         }
         if(!atualizar){
             httpClient.post("/api/usuario/add", usuario).then(response => {
-                alert("Cadastrado")
+                alert("Cadastrado com sucesso!")
             });
         }else{
             httpClient.put(`/api/usuario/${usuario.idUsuario}`, usuario).then(response => {

@@ -17,7 +17,13 @@ CREATE TABLE IF NOT EXISTS endereco (
 CREATE TABLE IF NOT EXISTS unidadedesaude (
   "idunidadedesaude" SERIAL,
   "nome" VARCHAR(45) NULL,
-  PRIMARY KEY ("idunidadedesaude"));
+  PRIMARY KEY ("idunidadedesaude"),
+  CONSTRAINT "fk_usuario_endereco1"
+    FOREIGN KEY ("idendereco")
+    REFERENCES endereco ("idendereco")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+  );
 
 
 -- -----------------------------------------------------

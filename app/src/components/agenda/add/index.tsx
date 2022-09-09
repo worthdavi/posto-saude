@@ -34,6 +34,7 @@ export const addAgenda = () => {
         httpClient.get("/api/medico/listar").then(response => {
             setMedicosLista(response.data)
         })
+        console.log(medicosLista)
     }, []);
 
     useEffect( () => {  

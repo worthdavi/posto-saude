@@ -39,6 +39,10 @@ export const TabelaUnidades: React.FC<TabelaUnidadesProps> = ({
         <DataTable value={unidades} paginator rows={10}>
             <Column field="idUnidade" header="ID unidade"/>
             <Column field="nome" header="Nome"/>
+            <Column field="endereco.rua" header="Rua"/>
+            <Column field="endereco.numero" header="Numero"/>
+            <Column field="endereco.bairro" header="Numero"/>
+            <Column field="endereco.estado" header="Numero"/>
             <Column header="Actions" body={actionTemplate} />
         </DataTable>
     )
